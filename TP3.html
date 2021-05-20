@@ -203,7 +203,7 @@ function collectStar (player, star)
 
     //  Sonido
     let sound = this.sound.add('colect');
-    sound.play();
+    sound.play({volume:0.2});
 
     if (stars.countActive(true) === 0)
     {
@@ -233,8 +233,7 @@ function collectSuperStar (player, superstar)
       scoreText.setText('Score\n' + score);
 
     let sound = this.sound.add('colect');
-    sound.play();
-
+    sound.play({volume:0.2});
     }
     
 
