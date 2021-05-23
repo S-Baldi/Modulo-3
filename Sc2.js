@@ -85,8 +85,8 @@ class Sc2 extends Phaser.Scene{
     gameOver = false;
     score = 0;
 
-    let music = this.sound.add('music');
-    music.play({volume:0.5});
+    music = this.sound.add('music');
+    music.play({volume:0.5});  
     
   }
 
@@ -94,7 +94,7 @@ class Sc2 extends Phaser.Scene{
 
     if (teclaR.isDown){
       this.scene.restart();
-      this.sound.add('music').stop();
+      music.stop();
     }
 
     if (gameOver){
@@ -193,7 +193,9 @@ class Sc2 extends Phaser.Scene{
 
     player.setTint(0xff0000);
 
-    player.anims.play('turn');        
+    player.anims.play('turn'); 
+    
+    music.stop();
 
     var gameOverButton = this.add.text(700, 400, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#000000' })
     .setInteractive()

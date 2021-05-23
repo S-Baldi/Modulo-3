@@ -25,3 +25,4 @@ var gameOver;
 var scoreText;
 var teclaR;
 var textR;
+var music;
