@@ -197,10 +197,11 @@ class Sc2 extends Phaser.Scene{
     
     music.stop();
 
-    var gameOverButton = this.add.text(700, 400, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#000000' })
+    var gameOverButton = this.add.text(100, 270, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#000000', backgroundColor: '#a90000' })
     .setInteractive()
+    .on('pointerover', () => this.add.text(100, 270, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#ffffff', backgroundColor: '#a90000' }))
+    .on('pointerout', () => this.add.text(100, 270, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#000000', backgroundColor: '#a90000' }))
     .on('pointerdown', () => this.scene.start('final'));
-    Phaser.Display.Align.In.Center(gameOverButton, this.add.zone(400, 330, 800, 600));
     
   }
 

@@ -50,23 +50,17 @@ class Sc1 extends Phaser.Scene{
     });
     
     var menuprincipal = this.add.image (400, 301, 'menuprincipal')
-    //menuprincipal.setInteractive()
-    //menuprincipal.on('pointerdown', () => this.scene.start('juego') );
 
-    //var botonIniciar = this.add.text(600, 470, 'Iniciar juego', { fontFamily: 'Arial', fontSize: 30, color: '#000000' })
-    //.setInteractive()
-    //.on('pointerdown', () => this.empezar() );
-
-    var botonInicar = this.add.image(700, 480, 'button').setScale(0.54)
+    var botonInicar = this.add.image(680, 480, 'button').setScale(0.54)
     .setInteractive()
-    .on('pointerover', () => this.add.image(700, 480, 'button2').setScale(0.54))
-    .on('pointerout', () => this.add.image(700, 480, 'button').setScale(0.54))
+    .on('pointerover', () => this.add.image(680, 480, 'button2').setScale(0.54))
+    .on('pointerout', () => this.add.image(680, 480, 'button').setScale(0.54))
     .on('pointerdown', () => this.empezar()) 
 
-    var botonAyuda = this.add.image(700, 520, 'ayuda').setScale(0.5)
+    var botonAyuda = this.add.image(680, 520, 'ayuda').setScale(0.5)
     .setInteractive()
-    .on('pointerover', () => this.add.image(700, 520, 'ayuda2').setScale(0.5))
-    .on('pointerout', () => this.add.image(700, 520, 'ayuda').setScale(0.5))
+    .on('pointerover', () => this.add.image(680, 520, 'ayuda2').setScale(0.5))
+    .on('pointerout', () => this.add.image(680, 520, 'ayuda').setScale(0.5))
     .on('pointerdown', () => this.ayuda()) 
     
   }
