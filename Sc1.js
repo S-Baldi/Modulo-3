@@ -13,7 +13,10 @@ class Sc1 extends Phaser.Scene{
     this.load.image('superstar', 'assets/estrellauno.png')
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+
     this.load.audio('colect', 'audio/star_1.wav');
+    this.load.audio('dead', 'audio/dead.wav');
+    this.load.audio('music', 'audio/musica.wav');
 
     this.load.image('button', 'assets/boton.png');
     this.load.image('button2', 'assets/boton2.png');
@@ -60,10 +63,10 @@ class Sc1 extends Phaser.Scene{
     .on('pointerout', () => this.add.image(700, 480, 'button').setScale(0.54))
     .on('pointerdown', () => this.empezar()) 
 
-    var botonAyuda = this.add.image(700, 520, 'ayuda').setScale(0.3)
+    var botonAyuda = this.add.image(700, 520, 'ayuda').setScale(0.5)
     .setInteractive()
-    .on('pointerover', () => this.add.image(700, 520, 'ayuda2').setScale(0.3))
-    .on('pointerout', () => this.add.image(700, 520, 'ayuda').setScale(0.3))
+    .on('pointerover', () => this.add.image(700, 520, 'ayuda2').setScale(0.5))
+    .on('pointerout', () => this.add.image(700, 520, 'ayuda').setScale(0.5))
     .on('pointerdown', () => this.ayuda()) 
     
   }

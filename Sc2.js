@@ -4,7 +4,7 @@ class Sc2 extends Phaser.Scene{
   }
 
   create(){
-
+    
     //  Background
     this.add.image(400, 300, 'fondo');
 
@@ -41,6 +41,7 @@ class Sc2 extends Phaser.Scene{
     stars.children.iterate(function (child) {
 
         //  Rebote
+        child.setCollideWorldBounds(true);
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
     });
@@ -48,12 +49,14 @@ class Sc2 extends Phaser.Scene{
     //Super estrella
     superstar = this.physics.add.group({
       key: "superstar",
-      repeat: 5,
+      repeat: 4,
       setXY: {x: 10, y:0, stepX: 150}
     })
 
     superstar.children.iterate(function (child) {
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+        child.setCollideWorldBounds(true);
+        child.setVelocity(Phaser.Math.Between(-100, 100), 20);
+        child.setBounce(1);
         
     })
 
@@ -68,7 +71,8 @@ class Sc2 extends Phaser.Scene{
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.collider(superstar, platforms);
-    this.physics.add.collider(stars, superstar);
+    this.physics.add.collider(superstar, superstar);
+    this.physics.add.collider(superstar, bombs);
     this.physics.add.collider(bombs, platforms);
 
     //  Overlap y hit bomb
@@ -80,11 +84,17 @@ class Sc2 extends Phaser.Scene{
 
     gameOver = false;
     score = 0;
+
+    let music = this.sound.add('music');
+    music.play({volume:0.5});
+    
   }
 
-  update(){
+  update(){    
+
     if (teclaR.isDown){
       this.scene.restart();
+      this.sound.add('music').stop();
     }
 
     if (gameOver){
@@ -93,13 +103,13 @@ class Sc2 extends Phaser.Scene{
 
     if (cursors.left.isDown)
     {
-      player.setVelocityX(-160);
+      player.setVelocityX(-200);
 
       player.anims.play('left', true);
     }
     else if (cursors.right.isDown)
     {
-      player.setVelocityX(160);
+      player.setVelocityX(200);
 
       player.anims.play('right', true);
     }
@@ -140,7 +150,10 @@ class Sc2 extends Phaser.Scene{
       });
 
       superstar.children.iterate(function(child){
-        child.enableBody(true, child.x, 0, true, true);
+        child.enableBody(true, Phaser.Math.Between(0, 800), 0, true, true);
+        child.setCollideWorldBounds(true);
+        child.setVelocity(Phaser.Math.Between(-100, 100), 20);
+        child.setBounce(1);
       })
 
       var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
@@ -169,6 +182,8 @@ class Sc2 extends Phaser.Scene{
   hitBomb (player, bomb)
   {
       this.gameOver()
+      let soundDead = this.sound.add('dead');
+      soundDead.play({volume:1});
   }
 
 
