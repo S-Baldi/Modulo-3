@@ -1,25 +1,30 @@
-class Sc3 extends Phaser.Scene {
+class Sc3 extends Phaser.Scene{
   constructor(){
     super('final');
   }
 
   preload(){
-    this.load.image('logo', 'assets/logo.png')
+    this.load.image('logo', 'assets/logo.png');
+
+    this.load.image('reiniciar', 'assets/reiniciar.png');
+    this.load.image('reiniciar2', 'assets/reiniciar2.png'); 
   }
 
   create(){
     this.add.image(400, 300, 'fondo')
-    this.add.image(400, 100, 'logo').set.Scale(0.5)
+    this.add.image(400, 150, 'logo').setScale(0.5)
 
     var puntajefinal = this.add.text (0, 0, 'Puntos: ' + score, {font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
-    Phaser.Display.Align.In.Center(puntajefinal, this.add.zone (400, 300, 800, 600));
+    Phaser.Display.Align.In.Center(puntajefinal, this.add.zone (400, 330, 800, 600));
 
-    var restartButton = this.add.text(700, 500, 'Reiniciar', { fontFamily: 'Arial', fontSize: 20, color: '#000000' })
-      .setInteractive()
-      .on('pointerdown', () => this.reiniciar() );
+    var botonReiniciar = this.add.image(700, 480, 'reiniciar').setScale(0.5)
+    .setInteractive()
+    .on('pointerover', () => this.add.image(700, 480, 'reiniciar2').setScale(0.5))
+    .on('pointerout', () => this.add.image(700, 480, 'reiniciar').setScale(0.5))
+    .on('pointerdown', () => this.volverAJugar()) 
   }
 
-    reiniciar(){
-      this.scene.start('juego');
-    }
+  volverAJugar(){
+    this.scene.start('juego');
+  }
 }

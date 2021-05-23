@@ -1,4 +1,4 @@
-class Sc2 extends Phaser.Scene {
+class Sc2 extends Phaser.Scene{
   constructor(){
     super('juego');
   }
@@ -26,7 +26,10 @@ class Sc2 extends Phaser.Scene {
     player.setCollideWorldBounds(true);
 
     //  Input Events
-    cursors = this.input.keyboard.createCursorKeys();
+    if (cursors =! undefined){
+      cursors = this.input.keyboard.createCursorKeys();
+      teclaR = this.input.keyboard.addKey('R');
+  }
 
     //  Stars
     stars = this.physics.add.group({
@@ -56,8 +59,10 @@ class Sc2 extends Phaser.Scene {
 
     bombs = this.physics.add.group();
 
-    //  Score
+    //  Textos
     scoreText = this.add.text(672, 3, 'Score\n0', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+  
+    textR = this.add.text (20, 3, 'Presiona R para reiniciar el nivel', { font: 'bold 10pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
   
     //  Colliders
     this.physics.add.collider(player, platforms);
@@ -67,17 +72,21 @@ class Sc2 extends Phaser.Scene {
     this.physics.add.collider(bombs, platforms);
 
     //  Overlap y hit bomb
-    this.physics.add.overlap(player, stars, collectStar, null, this);
+    this.physics.add.overlap(player, stars, this.collectStar, null, this);
 
-    this.physics.add.overlap(player, superstar, collectSuperStar, null, this);
+    this.physics.add.overlap(player, superstar, this.collectSuperStar, null, this);
 
-    this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(player, bombs, this.hitBomb, null, this);
 
     gameOver = false;
     score = 0;
   }
 
   update(){
+    if (teclaR.isDown){
+      this.scene.restart();
+    }
+
     if (gameOver){
       return
     }
@@ -102,7 +111,7 @@ class Sc2 extends Phaser.Scene {
     }
     
 
-    if (cursors.up.isDown && player.body.touching.down)
+    if (cursors.up.isDown && player.body.blocked.down)
     {     
       player.setVelocityY(-330);   
       //cont_salto = 0
@@ -121,7 +130,7 @@ class Sc2 extends Phaser.Scene {
     let sound = this.sound.add('colect');
     sound.play({volume:0.2});
 
-    if (stars.countActive(true) === 0)
+    if (stars.countActive(true) === 0 && superstar.countActive(true) === 0)
     {
       //  Nuevas estrellas
       stars.children.iterate(function (child) {
@@ -129,6 +138,10 @@ class Sc2 extends Phaser.Scene {
         child.enableBody(true, child.x, 0, true, true);
 
       });
+
+      superstar.children.iterate(function(child){
+        child.enableBody(true, child.x, 0, true, true);
+      })
 
       var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
@@ -150,14 +163,6 @@ class Sc2 extends Phaser.Scene {
 
     let sound = this.sound.add('colect');
     sound.play({volume:0.2});
-        
-    if (superstar.countActive(true) === 0)
-    {
-      superstar.children.iterate(function (child) {
-
-        child.enableBody(true, child.x, 0, true, true);
-
-      })};
   }
 
 
@@ -175,10 +180,11 @@ class Sc2 extends Phaser.Scene {
 
     player.anims.play('turn');        
 
-    var gameOverButton = this.add.text(700, 500, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#005000' })
+    var gameOverButton = this.add.text(700, 400, 'Has Perdido', { fontFamily: 'Arial', fontSize: 110, color: '#000000' })
     .setInteractive()
     .on('pointerdown', () => this.scene.start('final'));
-    Phaser.Display.Align.In.Center(gameOverButton, this.add.zone(400, 300, 800, 600));
+    Phaser.Display.Align.In.Center(gameOverButton, this.add.zone(400, 330, 800, 600));
+    
   }
 
 }

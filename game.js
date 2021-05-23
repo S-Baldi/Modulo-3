@@ -9,7 +9,7 @@ var config = {
         debug: true
       }
   },
-  scene:[Sc1, Sc2, Sc3]
+  scene:[Sc1, Sc2, Sc3, Sc4]
 };
 
 var game = new Phaser.Game(config);
@@ -23,3 +23,5 @@ var cursors;
 var score;
 var gameOver;
 var scoreText;
+var teclaR;
+var textR;

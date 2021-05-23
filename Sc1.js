@@ -1,11 +1,11 @@
 class Sc1 extends Phaser.Scene{
   constructor(){
-    super ("menu");
+    super('menu');
   }
 
   preload()
   {
-    this.load.image('menuprincipal', 'assets/MP.png')
+    this.load.image('menuprincipal', 'assets/MP.png') 
     this.load.image('fondo', 'assets/cielouno.jpg');
     this.load.image('suelo', 'assets/suelouno.png');
     this.load.image('plataformas', 'assets/suelodos.png');
@@ -14,6 +14,13 @@ class Sc1 extends Phaser.Scene{
     this.load.image('bomb', 'assets/bomb.png');
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     this.load.audio('colect', 'audio/star_1.wav');
+
+    this.load.image('button', 'assets/boton.png');
+    this.load.image('button2', 'assets/boton2.png');
+
+    this.load.image('ayuda', 'assets/ayuda.png');
+    this.load.image('ayuda2', 'assets/ayuda2.png');
+
   }
 
   create() {
@@ -40,9 +47,33 @@ class Sc1 extends Phaser.Scene{
     });
     
     var menuprincipal = this.add.image (400, 301, 'menuprincipal')
-    menuprincipal.setInteractive()
-    menuprincipal.on('pointerdown', () => this.scene.start('juego') );
+    //menuprincipal.setInteractive()
+    //menuprincipal.on('pointerdown', () => this.scene.start('juego') );
 
+    //var botonIniciar = this.add.text(600, 470, 'Iniciar juego', { fontFamily: 'Arial', fontSize: 30, color: '#000000' })
+    //.setInteractive()
+    //.on('pointerdown', () => this.empezar() );
+
+    var botonInicar = this.add.image(700, 480, 'button').setScale(0.54)
+    .setInteractive()
+    .on('pointerover', () => this.add.image(700, 480, 'button2').setScale(0.54))
+    .on('pointerout', () => this.add.image(700, 480, 'button').setScale(0.54))
+    .on('pointerdown', () => this.empezar()) 
+
+    var botonAyuda = this.add.image(700, 520, 'ayuda').setScale(0.3)
+    .setInteractive()
+    .on('pointerover', () => this.add.image(700, 520, 'ayuda2').setScale(0.3))
+    .on('pointerout', () => this.add.image(700, 520, 'ayuda').setScale(0.3))
+    .on('pointerdown', () => this.ayuda()) 
+    
   }
 
-}
+  empezar(){
+    this.scene.start('juego');
+  }
+
+  ayuda(){
+    this.scene.start('ayuda');
+  }
+
+}    
