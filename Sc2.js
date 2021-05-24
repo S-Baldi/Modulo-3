@@ -84,9 +84,10 @@ class Sc2 extends Phaser.Scene{
 
     gameOver = false;
     score = 0;
-
+    
+    //Musica
     music = this.sound.add('music');
-    music.play({volume:0.5});  
+    music.play({volume:0.5, loop: true});  
     
   }
 
