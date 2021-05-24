@@ -26,3 +26,4 @@ var scoreText;
 var teclaR;
 var textR;
 var music;
+var volverAtras;

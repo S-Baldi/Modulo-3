@@ -65,7 +65,8 @@ class Sc2 extends Phaser.Scene{
     //  Textos
     scoreText = this.add.text(672, 3, 'Score\n0', { font: 'bold 30pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
   
-    textR = this.add.text (20, 3, 'Presiona R para reiniciar el nivel', { font: 'bold 10pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    textR = this.add.text (320, 3, 'Presiona R para reiniciar el nivel', { font: 'bold 10pt Arial', fontSize: '36px', fill: '#fff', align:'center'});
+    Phaser.Display.Align.In.Center(textR, this.add.zone (400, 10, 800, 600))
   
     //  Colliders
     this.physics.add.collider(player, platforms);
@@ -89,9 +90,15 @@ class Sc2 extends Phaser.Scene{
     music = this.sound.add('music');
     music.play({volume:0.5, loop: true});  
     
+
+    var volverAtras = this.add.text(10, 8, 'Volver al Menú', { font: 'bold 20pt Arial', fill: '#ffffff'})
+    .setInteractive()
+    .on('pointerover', () => this.add.text(10, 8, 'Volver al Menú', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#000000'}))
+    .on('pointerout', () => this.add.text(10, 8, 'Volver al Menú', { font: 'bold 20pt Arial', fontSize: '36px', fill: '#ffffff'}))
+    .on('pointerdown', () => this.scene.start('menu') && music.stop());
   }
 
-  update(){    
+  update(){   
 
     if (teclaR.isDown){
       this.scene.restart();
@@ -205,5 +212,7 @@ class Sc2 extends Phaser.Scene{
     .on('pointerdown', () => this.scene.start('final'));
     
   }
+
+  
 
 }
