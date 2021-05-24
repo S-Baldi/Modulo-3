@@ -7,7 +7,7 @@ class Sc1 extends Phaser.Scene{
   {
     this.load.image('menuprincipal', 'assets/MP.png') 
     this.load.image('fondo', 'assets/cielouno.jpg');
-    this.load.image('suelo', 'assets/suelouno.png');
+    this.load.image('suelo', 'assets/Suelouno.png');
     this.load.image('plataformas', 'assets/suelodos.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('superstar', 'assets/estrellauno.png')
